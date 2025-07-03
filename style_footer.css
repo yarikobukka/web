@@ -1,0 +1,13 @@
+small {
+  color: #ffffff;
+}
+p {
+  text-align: center;
+  margin: 0;
+}
+.footer {
+  background-color: rgb(30, 56, 130);
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
