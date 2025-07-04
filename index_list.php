@@ -27,6 +27,28 @@
     </div>
 </form>
 
+  <h1>本のおすすめシステム</h1>
+  <form method="post">
+    <label>タイトル：<input type="text" name="title" required></label><br>
+    <label>著者名：<input type="text" name="author" required></label><br>
+    <button type="submit">おすすめを表示</button>
+  </form>
+
+  {% if recommendations %}
+    <h2>おすすめの本：</h2>
+    <table border="1">
+      <tr><th>タイトル</th><th>著者</th><th>説明</th><th>類似度</th></tr>
+      {% for book in recommendations %}
+        <tr>
+          <td>{{ book.title }}</td>
+          <td>{{ book.author }}</td>
+          <td>{{ book.desc }}</td>
+          <td>{{ '%.2f'|format(book.similarity) }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% endif %}
+
 <!-- 表示場所　-->
     <div class="content">
         <table class="book_table">
