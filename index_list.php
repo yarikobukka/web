@@ -28,12 +28,6 @@
 </form>
 
 <!-- 本のおすすめシステム -->
-<form method="post">
-<label>タイトル：<input type="text" name="title" required></label><br>
-<label>著者名：<input type="text" name="author" required></label><br>
-<button type="submit">おすすめを表示</button>
-</form>
-
 {% if recommendations %}
 <h2>おすすめの本：</h2>
 <table border="1">
