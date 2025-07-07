@@ -8,6 +8,5 @@ p {
 .footer {
   background-color: rgb(30, 56, 130);
   width: 100%;
-  position: fixed;
-  bottom: 0;
+  position: fixed bottom;
 }
