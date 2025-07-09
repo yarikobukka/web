@@ -3,6 +3,10 @@ h1 {
   color: rgb(30, 56, 130);
   text-align: center;
 }
+h2 {
+  color: rgb(30, 56, 130);
+  text-align: center;
+}
 .form_input {
   text-align: center;
 }
@@ -31,6 +35,12 @@ h1 {
 	color: #ffffff;
 	background: rgb(30, 56, 130);
 }
+.recommend {
+  text-align: center;
+}
+.recommend_table {
+  margin: 0 auto;
+}
 .content {
   width: fit-content;
   margin: auto;
@@ -44,16 +54,23 @@ h1 {
   padding: 5px 0;
 }
 .book_table {
-    width: 90%;
-    margin: 20px auto;
-    border-collapse: collapse;
-}
-.book_table td {
-    padding-left: 8px;
-    padding-right: 8px;
-    text-align: center;
-    width: 30%;
+  width: 90%;
+  margin: 20px auto;
+  border-collapse: collapse;
 }
 form .form_table td {
-    padding: 6px;
+  padding: 6px;
+}
+.list {
+  background-color: #add8e6;
+}
+.showed_title {
+  text-align: left;
+  width: 30%;
+  padding: 10px;
+}
+.showed_author {
+  text-align: right;
+  width: 30%;
+  padding: 10px;
 }
