@@ -1,9 +1,10 @@
 small {
   color: #ffffff;
+  text-align: center;
 }
 p {
-  text-align: center;
   margin: 0;
+  text-align: center;
 }
 .footer {
   background-color: rgb(30, 56, 130);
