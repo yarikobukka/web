@@ -54,6 +54,11 @@ form .form_table td {
   border-radius: 10px;
   margin: 10px;
   padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  gap: 20px;
+  overflow: hidden;
 }
 .showed_title {
   text-align: left;
