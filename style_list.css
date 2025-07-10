@@ -9,6 +9,7 @@ h2 {
 }
 .form_input {
   text-align: center;
+  margin-bottom: 40px;
 }
 .form_table {
   margin: 0 auto;
@@ -37,6 +38,7 @@ h2 {
 }
 .recommend {
   text-align: center;
+  margin-bottom: 40px;
 }
 .recommend_table {
   margin: 0 auto;
