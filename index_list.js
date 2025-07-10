@@ -25,13 +25,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 throw new Error("保存に失敗しました");
             }
 
-            // 表示テーブルに即座に行を追加
-            const table = document.querySelector(".book_table");
-            const newRow = table.insertRow();
-            const titleCell = newRow.insertCell();
-            const authorCell = newRow.insertCell();
-            titleCell.textContent = title;
-            authorCell.textContent = author;
+            // 新しい本を画面の一番上に追加
+            const content = document.querySelector('.content');
+
+            const newDiv = document.createElement('div');
+            newDiv.className = 'list';
+
+            const titleDiv = document.createElement('div');
+            titleDiv.className = 'showed_title';
+            titleDiv.textContent = title;
+
+            const authorDiv = document.createElement('div');
+            authorDiv.className = 'showed_author';
+            authorDiv.textContent = author;
+
+            newDiv.appendChild(titleDiv);
+            newDiv.appendChild(authorDiv);
+
+            // 一番上に追加（ここだけでOK）
+            content.insertBefore(newDiv, content.firstChild);
 
             // フォームをリセット
             form.reset();
