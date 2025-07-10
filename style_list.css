@@ -70,3 +70,6 @@ form .form_table td {
   float: right;
   width: fit-content;
 }
+th {
+	color: rgb(30, 56, 130);
+}

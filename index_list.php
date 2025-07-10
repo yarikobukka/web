@@ -51,6 +51,7 @@
     $filename = "books.txt";
     if (file_exists($filename)) {
         $lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        $lines = array_reverse($lines);
         foreach ($lines as $line) {
             if (preg_match("/^(.+?) - (.+)$/u", $line, $matches)) {
                 $title = htmlspecialchars($matches[1], ENT_QUOTES, 'UTF-8');
