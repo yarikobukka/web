@@ -45,26 +45,31 @@
 <!-- {% endif %} -->
 </div>
 
-<!-- 表示場所　-->
+<!-- 表示場所 -->
 <div class="content">
 <?php
     $filename = "books.txt";
     if (file_exists($filename)) {
         $lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        $lines = array_reverse($lines);
+        $lines = array_reverse($lines); // 新しい順に表示
         foreach ($lines as $line) {
-            if (preg_match("/^(.+?) - (.+)$/u", $line, $matches)) {
+            if (preg_match("/^(.+?) - (.+?) - (.+)$/u", $line, $matches)) {
                 $title = htmlspecialchars($matches[1], ENT_QUOTES, 'UTF-8');
                 $author = htmlspecialchars($matches[2], ENT_QUOTES, 'UTF-8');
-                echo "<div class='list'><div class='showed_title'>{$title}</div><div class='showed_author'>{$author}</div></div>";
-                }
+                $date = htmlspecialchars($matches[3], ENT_QUOTES, 'UTF-8');
+                echo "<div class='list'>
+                        <div class='showed_title'>{$title}</div>
+                        <div class='showed_author'>{$author}</div>
+                        <div class='showed_date'>{$date}</div>
+                    </div>";
             }
+        }
+    } else {
+        echo "<p>まだ本は登録されていません。</p>";
     }
-    else {
-        echo "<tr><td colspan='2'>まだ本は登録されていません。</td></tr>";
-    }
-    ?>
+?>
 </div>
+
 <?php include('index_footer.html'); ?>
 <script src="index_list.js"></script>
 </body>

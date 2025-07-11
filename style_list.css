@@ -58,19 +58,26 @@ form .form_table td {
   margin: 10px;
   padding: 10px;
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center; 
-  gap: 20px;
+  gap: 4px;
   overflow: hidden;
 }
 .showed_title {
   text-align: left;
   width: fit-content;
+  flex: 1 1 45%;
 }
 .showed_author {
   text-align: right;
   float: right;
   width: fit-content;
+    flex: 1 1 45%;
+}
+.showed_date {
+  color: #a9a9a9;
+  flex: 1 1 100%;
+  text-align: right;
 }
 th {
 	color: rgb(30, 56, 130);
