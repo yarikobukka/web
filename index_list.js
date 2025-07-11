@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("bookForm");
 
     form.addEventListener("submit", function (e) {
-        e.preventDefault(); // フォーム送信を止める（リロード防止）
+        e.preventDefault(); // ページリロードを防ぐ
 
         const title = form.querySelector('.input_title').value.trim();
         const author = form.querySelector('.input_author').value.trim();
@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // PHPに非同期POST（fetch）
         fetch("save_book.php", {
             method: "POST",
             headers: {
@@ -25,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 throw new Error("保存に失敗しました");
             }
 
-            // 新しい本を画面の一番上に追加
+            // 表示に追加
             const content = document.querySelector('.content');
 
             const newDiv = document.createElement('div');
@@ -39,13 +38,17 @@ document.addEventListener("DOMContentLoaded", function () {
             authorDiv.className = 'showed_author';
             authorDiv.textContent = author;
 
+            const date = new Date().toISOString().split('T')[0];
+            const dateDiv = document.createElement('div');
+            dateDiv.className = 'showed_date';
+            dateDiv.textContent = date;
+
             newDiv.appendChild(titleDiv);
             newDiv.appendChild(authorDiv);
+            newDiv.appendChild(dateDiv);
 
-            // 一番上に追加（ここだけでOK）
             content.insertBefore(newDiv, content.firstChild);
 
-            // フォームをリセット
             form.reset();
         })
         .catch(error => {
