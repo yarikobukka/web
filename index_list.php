@@ -45,6 +45,14 @@
 <!-- {% endif %} -->
 </div>
 
+<!-- 並び順セレクトボックス -->
+<div class="sort_order">
+    <select id="sort_order">
+        <option value="new" selected>新しい順</option>
+        <option value="old">古い順</option>
+    </select>
+</div>
+
 <!-- 表示場所 -->
 <div class="content">
 <?php
@@ -56,15 +64,16 @@
             if (preg_match("/^(.+?) - (.+?) - (.+)$/u", $line, $matches)) {
                 $title = htmlspecialchars($matches[1], ENT_QUOTES, 'UTF-8');
                 $author = htmlspecialchars($matches[2], ENT_QUOTES, 'UTF-8');
-                $date = htmlspecialchars($matches[3], ENT_QUOTES, 'UTF-8');
-                echo "<div class='list'>
-                        <div class='showed_title'>{$title}</div>
-                        <div class='showed_author'>{$author}</div>
-                        <div class='showed_date'>{$date}</div>
-                    </div>";
+                $datetime = htmlspecialchars($matches[3], ENT_QUOTES, 'UTF-8');
+                $date_only = substr($datetime, 0, 10); // YYYY/MM/DD 部分だけ抜き出す
+            echo "<div class='list'>
+                <div class='showed_title'>{$title}</div>
+                <div class='showed_author'>{$author}</div>
+                <div class='showed_date' data-date='{$datetime}'> {$date_only}</div>
+            </div>";
             }
         }
-    } else {
+    }else {
         echo "<p>まだ本は登録されていません。</p>";
     }
 ?>
