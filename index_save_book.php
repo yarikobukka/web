@@ -4,7 +4,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $author = trim($_POST["author"] ?? '');
 
     if ($title !== '' && $author !== '') {
-        $date = date('Y/m/d');
+        $date = date("Y/m/d H:i:s");
         $line = $title . " - " . $author . " - " . $date . PHP_EOL;
         file_put_contents("books.txt", $line, FILE_APPEND | LOCK_EX);
         http_response_code(200);

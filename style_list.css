@@ -82,3 +82,11 @@ form .form_table td {
 th {
 	color: rgb(30, 56, 130);
 }
+.sort_order {
+  text-align: right;
+}
+#sort_order {
+  margin-right: 50px;
+  border: none;
+  outline: none;
+}
