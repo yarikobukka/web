@@ -12,7 +12,7 @@
 <h1>Book List</h1>
 
 <!-- 入力フォーム -->
-<form id="bookForm" action="save_book.php" method="post">
+<form id="book_form" action="save_book.php" method="post">
     <div class="form_input">
         <table class="form_table">
             <tr>
