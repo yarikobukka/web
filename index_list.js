@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById("bookForm");
+  const form = document.getElementById("book_form");
   const content = document.querySelector(".content");
   const sortSelect = document.getElementById("sort_order");
 
