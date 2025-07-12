@@ -53,7 +53,7 @@ form .form_table td {
   padding: 6px;
 }
 .list {
-  background-color: #b0e0e6;
+  background-color: #d4eef1;
   border-radius: 10px;
   margin: 10px;
   padding: 10px;
@@ -82,11 +82,36 @@ form .form_table td {
 th {
 	color: rgb(30, 56, 130);
 }
-.sort_order {
-  text-align: right;
+.select_order_wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  gap: 4px;
 }
-#sort_order {
-  margin-right: 50px;
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: white;
   border: none;
+  border-radius: 4px;
+  height: 36px;
+  font-size: 16px;
   outline: none;
+  cursor: pointer;
+  width: fit-content;
+  padding-left: 4px;
+  padding-right: 40px;
+}
+.chevron_icon {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border: 1px solid #333;
+  border-left: none;
+  border-bottom: none;
+  transform: rotate(135deg) translateY(4px); 
+  margin-top: 2px;
+  pointer-events: none;
 }
