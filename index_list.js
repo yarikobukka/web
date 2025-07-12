@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
       newDiv.appendChild(authorDiv);
       newDiv.appendChild(dateDiv);
 
-      content.insertBefore(newDiv, content.firstChild);
+      content.appendChild(newDiv);
       form.reset();
       sortList(sortSelect.value);
     })
