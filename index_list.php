@@ -8,17 +8,17 @@
 </head>
 <body>
 <?php include('index_header.html'); ?>
+
 <h1>Book List</h1>
 
 <!-- 入力フォーム -->
-<form id="book_form" action="save_book.php" method="post">
+<form id="book_form" method="post" action="save_book.php">
     <div class="form_input">
         <table class="form_table">
             <tr>
                 <td>タイトル</td>
                 <td>
                     <input type="text" name="title" class="input_title" required />
-                    <!-- ふりがなはhiddenで管理 -->
                     <input type="hidden" name="reading" class="input_reading" />
                 </td>
             </tr>
@@ -33,19 +33,19 @@
 
 <!-- 本のおすすめシステム -->
 <div class="recommend">
-<!-- {% if recommendations %} -->
-<h2>おすすめの本</h2>
-<table class="recommend_table">
-  <tr><th>タイトル</th><th>著者</th><th>説明</th></tr>
-  <!-- {% for book in recommendations %} -->
-    <tr>
-      <td>{{ book.title }}</td>
-      <td>{{ book.author }}</td>
-      <td>{{ book.desc }}</td>
-    </tr>
-  <!-- {% endfor %} -->
-</table>
-<!-- {% endif %} -->
+    <!-- {% if recommendations %} -->
+    <h2>おすすめの本</h2>
+    <table class="recommend_table">
+        <tr><th>タイトル</th><th>著者</th><th>説明</th></tr>
+        <!-- {% for book in recommendations %} -->
+        <tr>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.desc }}</td>
+        </tr>
+        <!-- {% endfor %} -->
+    </table>
+    <!-- {% endif %} -->
 </div>
 
 <!-- 並び順セレクトボックス -->
@@ -64,21 +64,30 @@
     $filename = "books.txt";
     if (file_exists($filename)) {
         $lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        $lines = array_reverse($lines); // 新しい順に表示（デフォルト）
+        if (count($lines) === 0) {
+            echo "<p>まだ本は登録されていません。</p>";
+        } else {
+            // 新しい順に表示するため配列を反転
+            $lines = array_reverse($lines);
 
-        foreach ($lines as $line) {
-            if (preg_match("/^(.+?) - (.+?) - (.+?) - (.+)$/u", $line, $matches)) {
-                $title = htmlspecialchars($matches[1], ENT_QUOTES, 'UTF-8');
-                $reading = htmlspecialchars($matches[2], ENT_QUOTES, 'UTF-8');
-                $author = htmlspecialchars($matches[3], ENT_QUOTES, 'UTF-8');
-                $datetime = htmlspecialchars($matches[4], ENT_QUOTES, 'UTF-8');
-                $date_only = substr($datetime, 0, 10); // YYYY/MM/DD 部分だけ抜き出す
+            foreach ($lines as $line) {
+                /*
+                 * books.txtの1行の形式:
+                 * タイトル - 読み仮名 - 著者 - 日付(YYYY/MM/DD HH:MM:SS)
+                 */
+                if (preg_match("/^(.+?) - (.+?) - (.+?) - (.+)$/u", $line, $matches)) {
+                    $title = htmlspecialchars($matches[1], ENT_QUOTES, 'UTF-8');
+                    $reading = htmlspecialchars($matches[2], ENT_QUOTES, 'UTF-8');
+                    $author = htmlspecialchars($matches[3], ENT_QUOTES, 'UTF-8');
+                    $date = htmlspecialchars($matches[4], ENT_QUOTES, 'UTF-8');
+                    $date_only = substr($date, 0, 10); // YYYY/MM/DD 部分だけ抜き出し
 
-                echo "<div class='list' data-reading='{$reading}'>
-                    <div class='showed_title'>{$title}</div>
-                    <div class='showed_author'>{$author}</div>
-                    <div class='showed_date' data-date='{$datetime}'>{$date_only}</div>
-                </div>";
+                    echo "<div class='list' data-reading='{$reading}'>
+                        <div class='showed_title'>{$title}</div>
+                        <div class='showed_author'>{$author}</div>
+                        <div class='showed_date' data-date='{$date}'>{$date_only}</div>
+                    </div>";
+                }
             }
         }
     } else {
@@ -88,7 +97,9 @@
 </div>
 
 <?php include('index_footer.html'); ?>
+
 <script src="https://unpkg.com/wanakana"></script>
 <script src="index_list.js"></script>
+
 </body>
 </html>

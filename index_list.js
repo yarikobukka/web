@@ -5,10 +5,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const titleInput = document.querySelector(".input_title");
   const readingInput = document.querySelector(".input_reading");
 
+  // タイトル入力時に読み仮名を更新
   titleInput.addEventListener("input", function () {
-    const title = titleInput.value;
-    const reading = wanakana.toHiragana(title);
-    readingInput.value = reading;
+    readingInput.value = wanakana.toHiragana(titleInput.value);
   });
 
   // 日付取得（data-date 属性を利用）
@@ -42,32 +41,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // セレクトボックス変更イベント
   sortSelect.addEventListener("change", function () {
-    const order = sortSelect.value;
-    sortList(order);
+    sortList(sortSelect.value);
   });
 
   // フォーム送信時の処理
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const title = form.querySelector('.input_title').value.trim();
+    // 送信前に最新の読み仮名をhidden inputにセット
+    readingInput.value = wanakana.toHiragana(titleInput.value);
+
+    const title = titleInput.value.trim();
     const author = form.querySelector('.input_author').value.trim();
+    const reading = readingInput.value.trim();
 
     if (!title || !author) {
       alert("タイトルと著者を入力してください。");
       return;
     }
 
-    // wanakanaで自動ふりがな生成（ひらがなに変換）
-    const reading = wanakana.toHiragana(title);
-
     const now = new Date();
     const dateStr = now.getFullYear() + "/" +
-                  String(now.getMonth() + 1).padStart(2, "0") + "/" +
-                  String(now.getDate()).padStart(2, "0");
+                    String(now.getMonth() + 1).padStart(2, "0") + "/" +
+                    String(now.getDate()).padStart(2, "0");
     const timeStr = String(now.getHours()).padStart(2, "0") + ":" +
-                  String(now.getMinutes()).padStart(2, "0") + ":" +
-                  String(now.getSeconds()).padStart(2, "0");
+                    String(now.getMinutes()).padStart(2, "0") + ":" +
+                    String(now.getSeconds()).padStart(2, "0");
     const fullDateTime = `${dateStr} ${timeStr}`;
 
     fetch("save_book.php", {
@@ -80,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(response => {
       if (!response.ok) throw new Error("保存に失敗しました");
 
-      // 新しい要素を作成
+      // 新しい要素を作成して表示
       const newDiv = document.createElement("div");
       newDiv.className = "list";
       newDiv.setAttribute("data-reading", reading);
@@ -103,6 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
       newDiv.appendChild(dateDiv);
 
       content.appendChild(newDiv);
+
       form.reset();
       sortList(sortSelect.value);
     })
