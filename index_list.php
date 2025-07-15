@@ -72,7 +72,8 @@
             $lines = array_reverse($lines);
 
             foreach ($lines as $line) {
-              if (preg_match("/^(.+?) - (.+?) - (.+?) - (.+)$/u", $line, $matches)) {
+              if (preg_match("/^(.+?) - (.+?) - (.+?) - (.+?)$/u", $line, $matches)) {
+                $line = htmlspecialchars($marches[0], ENT_QUOTES, 'UFT-8');
                 $title = htmlspecialchars($matches[1], ENT_QUOTES, 'UTF-8');
                 $reading = htmlspecialchars($matches[2], ENT_QUOTES, 'UTF-8');
                 $author = htmlspecialchars($matches[3], ENT_QUOTES, 'UTF-8');
