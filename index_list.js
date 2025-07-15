@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const reading = readingInput.value.trim();
 
     if (!title || !reading || !author) {
-      alert("タイトルと著者を入力してください。");
+      alert("すべての欄を入力してください。");
       return;
     }
 
