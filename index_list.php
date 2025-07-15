@@ -17,14 +17,15 @@
         <table class="form_table">
             <tr>
                 <td>タイトル</td>
-                <td>
-                    <input type="text" name="title" class="input_title" required />
-                    <input type="hidden" name="reading" class="input_reading" />
-                </td>
+                <td><input type="text" name="title" class="input_title"></td>
+            </tr>
+            <tr>
+                <td>読み方</td>
+                <td><input type="text" name="reading" class="input_reading"></td>
             </tr>
             <tr>
                 <td>著者</td>
-                <td><input type="text" name="author" class="input_author" required /></td>
+                <td><input type="text" name="author" class="input_author"></td>
             </tr>
         </table>
         <button type="submit" class="submit">追加</button>
@@ -71,23 +72,19 @@
             $lines = array_reverse($lines);
 
             foreach ($lines as $line) {
-                /*
-                 * books.txtの1行の形式:
-                 * タイトル - 読み仮名 - 著者 - 日付(YYYY/MM/DD HH:MM:SS)
-                 */
-                if (preg_match("/^(.+?) - (.+?) - (.+?) - (.+)$/u", $line, $matches)) {
-                    $title = htmlspecialchars($matches[1], ENT_QUOTES, 'UTF-8');
-                    $reading = htmlspecialchars($matches[2], ENT_QUOTES, 'UTF-8');
-                    $author = htmlspecialchars($matches[3], ENT_QUOTES, 'UTF-8');
-                    $date = htmlspecialchars($matches[4], ENT_QUOTES, 'UTF-8');
-                    $date_only = substr($date, 0, 10); // YYYY/MM/DD 部分だけ抜き出し
+              if (preg_match("/^(.+?) - (.+?) - (.+?) - (.+)$/u", $line, $matches)) {
+                $title = htmlspecialchars($matches[1], ENT_QUOTES, 'UTF-8');
+                $reading = htmlspecialchars($matches[2], ENT_QUOTES, 'UTF-8');
+                $author = htmlspecialchars($matches[3], ENT_QUOTES, 'UTF-8');
+                $date = htmlspecialchars($matches[4], ENT_QUOTES, 'UTF-8');
+                $date_only = substr($date, 0, 10);
 
                     echo "<div class='list' data-reading='{$reading}'>
-                        <div class='showed_title'>{$title}</div>
-                        <div class='showed_author'>{$author}</div>
-                        <div class='showed_date' data-date='{$date}'>{$date_only}</div>
-                    </div>";
-                }
+                            <div class='showed_title'>{$title}</div>
+                            <div class='showed_author'>{$author}</div>
+                            <div class='showed_date' data-date='{$date}'>{$date_only}</div>
+                          </div>";
+              }
             }
         }
     } else {
@@ -98,7 +95,6 @@
 
 <?php include('index_footer.html'); ?>
 
-<script src="https://unpkg.com/wanakana"></script>
 <script src="index_list.js"></script>
 
 </body>

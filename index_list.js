@@ -5,11 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const titleInput = document.querySelector(".input_title");
   const readingInput = document.querySelector(".input_reading");
 
-  // タイトル入力時に読み仮名を更新
-  titleInput.addEventListener("input", function () {
-    readingInput.value = wanakana.toHiragana(titleInput.value);
-  });
-
   // 日付取得（data-date 属性を利用）
   function getDateFromElement(el) {
     const dateAttr = el.querySelector(".showed_date")?.getAttribute("data-date") || "";
@@ -48,14 +43,11 @@ document.addEventListener("DOMContentLoaded", function () {
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    // 送信前に最新の読み仮名をhidden inputにセット
-    readingInput.value = wanakana.toHiragana(titleInput.value);
-
     const title = titleInput.value.trim();
     const author = form.querySelector('.input_author').value.trim();
     const reading = readingInput.value.trim();
 
-    if (!title || !author) {
+    if (!title || !reading || !author) {
       alert("タイトルと著者を入力してください。");
       return;
     }
@@ -74,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: `title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}&reading=${encodeURIComponent(reading)}`
+      body: `title=${encodeURIComponent(title)}&reading=${encodeURIComponent(reading)}&author=${encodeURIComponent(author)}&date=${encodeURIComponent(fullDateTime)}`
     })
     .then(response => {
       if (!response.ok) throw new Error("保存に失敗しました");
