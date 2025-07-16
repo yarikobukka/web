@@ -1,15 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("DOM読み込み完了");
-  const form = document.getElementById("book_form");
-
-  form.addEventListener("submit", function (e) {
-  e.preventDefault();
-  console.log("submitイベント発火");
-});
-
-  });
-
-document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("book_form");
   const content = document.querySelector(".content");
   const sortSelect = document.getElementById("select_order");
