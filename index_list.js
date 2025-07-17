@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // --- メニューボタンとドロップダウンを追加・イベント設定する関数 ---
   function createMenuButtonForItem(itemDiv) {
-  if (itemDiv.querySelector(".menu_button")) return; // すでにある場合はスキップ
+  if (itemDiv.querySelector(".menu_button")) return;
 
   const titleDiv = itemDiv.querySelector(".showed_title");
   const authorDiv = itemDiv.querySelector(".showed_author");
@@ -81,26 +81,41 @@ document.addEventListener("DOMContentLoaded", function () {
   menu.appendChild(editItem);
   menu.appendChild(deleteItem);
   menuBtn.appendChild(menu);
-  itemDiv.appendChild(menuBtn);
+
+  // メニューと日付をまとめる行を作成
+  const dateMenuRow = document.createElement("div");
+  dateMenuRow.className = "date_menu_row";
+  dateMenuRow.appendChild(menuBtn);
+  dateMenuRow.appendChild(dateDiv);
+
+  // 挿入
+  itemDiv.appendChild(dateMenuRow);
 
     // メニュー表示切替
     menuBtn.addEventListener("click", (e) => {
       e.stopPropagation();
-      menu.style.display = "block";
+
+      const isShown = menu.style.display === "block";
+
+      if (isShown) {
+        menu.style.display = "none";
+      } else {
+        menu.style.display = "block";
 
       const menuRect = menu.getBoundingClientRect();
       const windowWidth = window.innerWidth;
 
-      // はみ出す場合は右寄せに変更
-      if (menuRect.right > windowWidth) {
-        menu.style.left = "auto";
-        menu.style.right = "0";
-        menu.style.transform = "none";
-      } else {
-        // 通常の中央表示
-        menu.style.left = "50%";
-        menu.style.right = "auto";
-        menu.style.transform = "translateX(-50%)";
+        // はみ出す場合は右寄せに変更
+        if (menuRect.right > windowWidth) {
+          menu.style.left = "auto";
+          menu.style.right = "0";
+          menu.style.transform = "none";
+        } else {
+         // 通常の中央表示
+          menu.style.left = "50%";
+          menu.style.right = "auto";
+          menu.style.transform = "translateX(-50%)";
+        }
       }
     });
     document.addEventListener("click", () => {
@@ -140,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
           return;
         }
 
-        fetch("books_manage.php", {
+        fetch("index_books_manage.php", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: new URLSearchParams({
@@ -178,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const authorText = authorDiv.textContent;
       const readingText = reading;
 
-      fetch("books_manage.php", {
+      fetch("index_books_manage.php", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams({
@@ -229,7 +244,7 @@ document.addEventListener("DOMContentLoaded", function () {
       title, reading, author, date: fullDateTime
     });
 
-    fetch("books_manage.php", {
+    fetch("index_books_manage.php", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: params.toString()
