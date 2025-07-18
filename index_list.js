@@ -132,10 +132,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const titleInput = document.createElement("input");
       titleInput.value = titleText;
+      titleInput.setAttribute('name', 'edit_title');
+      titleInput.setAttribute('id', 'edit_title');
+      titleInput.className = "edit_title";
       const authorInput = document.createElement("input");
       authorInput.value = authorText;
+      authorInput.setAttribute('name', 'edit_author');
+      authorInput.setAttribute('id', 'edit_author');
+      authorInput.className = "edit_author";
       const readingInput = document.createElement("input");
       readingInput.value = readingText;
+      readingInput.setAttribute('name', 'edit_reading');
+      readingInput.setAttribute('id', 'edit_reading');
+      readingInput.className = "edit_reading";
 
       titleDiv.replaceWith(titleInput);
       authorDiv.replaceWith(authorInput);
@@ -143,6 +152,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const saveBtn = document.createElement("button");
       saveBtn.textContent = "保存";
+      saveBtn.setAttribute('name', 'save');
+      saveBtn.setAttribute('id', 'save');
       saveBtn.className = "save";
       itemDiv.appendChild(saveBtn);
 

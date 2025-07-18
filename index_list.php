@@ -17,15 +17,15 @@
         <table class="form_table">
             <tr>
                 <td>タイトル</td>
-                <td><input type="text" name="title" class="input_title"></td>
+                <td><input type="text" name="title" id="title" class="input_title"></td>
             </tr>
             <tr>
                 <td>読み方</td>
-                <td><input type="text" name="reading" class="input_reading"></td>
+                <td><input type="text" name="reading" id="reading" class="input_reading"></td>
             </tr>
             <tr>
                 <td>著者</td>
-                <td><input type="text" name="author" class="input_author"></td>
+                <td><input type="text" name="author" id="author" class="input_author"></td>
             </tr>
         </table>
         <button type="submit" class="submit">追加</button>
