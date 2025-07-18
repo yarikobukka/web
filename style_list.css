@@ -218,12 +218,12 @@ select {
   }
 }
 .save {
-  border: 2px solid rgb(30, 56, 130);
+  border: 1px solid rgb(30, 56, 130);
   background-color: #ffffff;
   color: rgb(30, 56, 130);
   border-radius: 100vh;
   transition: 0.5s;
-  font-weight: bold;
+  font-size: small;
 }
 .save:hover {
   color: #ffffff;
