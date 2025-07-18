@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // メニュー項目 - 編集
   const editItem = document.createElement("div");
   editItem.textContent = "編集";
-  editItem.className = "dropdown_item";
+  editItem.className = "dropdown_item edit_item";
 
   // メニュー項目 - 削除
   const deleteItem = document.createElement("div");
@@ -143,6 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const saveBtn = document.createElement("button");
       saveBtn.textContent = "保存";
+      saveBtn.className = "save";
       itemDiv.appendChild(saveBtn);
 
       saveBtn.addEventListener("click", () => {
