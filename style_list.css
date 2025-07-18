@@ -217,3 +217,15 @@ select {
     right: 5px;
   }
 }
+.save {
+  border: 2px solid rgb(30, 56, 130);
+  background-color: #ffffff;
+  color: rgb(30, 56, 130);
+  border-radius: 100vh;
+  transition: 0.5s;
+  font-weight: bold;
+}
+.save:hover {
+  color: #ffffff;
+  background-color: rgb(30, 56, 130);
+}
