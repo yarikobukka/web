@@ -295,3 +295,40 @@ document.addEventListener("DOMContentLoaded", function () {
     .catch(error => alert(error.message));
   });
 });
+
+// APIに送信するコード
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.getElementById('book_form');
+
+  form.addEventListener('submit', function (e) {
+    // 入力値の取得
+    const title = document.getElementById('title').value.trim();
+    const reading = document.getElementById('reading').value.trim();
+    const author = document.getElementById('author').value.trim();
+
+    if (!title || !author) {
+      alert('タイトルと著者は必須です。');
+      return; // フォーム送信はキャンセルしない（PHP側でもバリデートする想定）
+    }
+
+    // API送信：fetchで非同期POST
+    fetch('https://example.com/api/books', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title, reading, author })
+    })
+    .then(response => {
+      if (!response.ok) {
+        console.warn('⚠ API送信失敗（ステータス:', response.status, '）');
+      } else {
+        console.log('✔ API送信成功');
+      }
+    })
+    .catch(error => {
+      console.error('⚠ 通信エラー:', error.message);
+    });
+
+    // ★ ここで return true; として送信を続行（PHPも動く）
+    return true;
+  });
+});
