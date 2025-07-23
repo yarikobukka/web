@@ -60,7 +60,7 @@
 </div>
 
 <!-- 表示場所 -->
-<div class="content" style="margin-top: 20px;">
+<div class="content">
 <?php
     $filename = "books.txt";
     if (file_exists($filename)) {
