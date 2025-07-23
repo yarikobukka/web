@@ -3,3 +3,61 @@ h1 {
   text-align: center;
   padding-top: 70px;
 }
+.stars span{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+.stars input[type='radio']{
+  display: none;
+}
+.stars label{
+  color: #D2D2D2;
+  font-size: 30px;
+  padding: 0 5px;
+  cursor: pointer;
+}
+.stars label:hover,
+.stars label:hover ~ label,
+.stars input[type='radio']:checked ~ label{
+  color: #F8C601;
+}
+.form_input {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.form_table {
+  margin: 0 auto;
+  padding-bottom: 12px;
+}
+.submit {
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	width: 100px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+	margin: auto;
+	font-weight: bold;
+	border: 2px solid rgb(30, 56, 130);
+	color: rgb(30, 56, 130);
+  background-color: #ffffff;
+	border-radius: 100vh;
+	transition: 0.5s;
+}
+.submit:hover {
+	color: #ffffff;
+	background: rgb(30, 56, 130);
+}
+.input_impression {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  resize: none;
+  font-family: "Hiragino Sans", "ヒラギノ角ゴ ProN W3", "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, "MS Ｐゴシック", "MS PGothic", sans-serif;
+}
+form .form_table td {
+  padding: 6px;
+}
