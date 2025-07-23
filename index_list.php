@@ -79,13 +79,12 @@
                 $author = htmlspecialchars($matches[3], ENT_QUOTES, 'UTF-8');
                 $date = htmlspecialchars($matches[4], ENT_QUOTES, 'UTF-8');
                 $date_only = substr($date, 0, 10);
-
                     echo "<div class='list' data-reading='{$reading}'>
                             <div class='showed_title'>{$title}</div>
                             <div class='showed_author'>{$author}</div>
                             <div class='showed_date' data-date='{$date}'>{$date_only}</div>
                           </div>";
-              }
+                }
             }
         }
     } else {
