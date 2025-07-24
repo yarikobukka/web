@@ -73,7 +73,7 @@ form .form_table td {
   text-align: right;
   float: right;
   width: fit-content;
-    flex: 1 1 45%;
+  flex: 1 1 45%;
 }
 .showed_date {
   color: #a9a9a9;

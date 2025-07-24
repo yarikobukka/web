@@ -6,6 +6,21 @@
 	<title>Document_note</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="style_note.css">
+    <script>
+    const bookData = {
+    <?php
+    $lines = file("books.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        $parts = explode(" - ", $line);
+        $title = trim($parts[0]);
+        $author = trim($parts[2]); // 著者（3つ目の要素）
+        $title_escaped = json_encode($title);   // JS用にエスケープ
+        $author_escaped = json_encode($author);
+        echo "    $title_escaped: $author_escaped,\n";
+    }
+    ?>
+    };
+    </script>
 </head>
 <body>
 <?php include ('index_header.html');?>
@@ -16,9 +31,9 @@
     <div class="form_input">
         <table class="form_table">
             <tr>
-                <td>本を選ぶ</td>
+                <td>タイトル</td>
                 <td>
-                    <select name="book">
+                    <select class="form_control" name="book">
                     <?php
                     $lines = file("books.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
                     foreach ($lines as $line) {
@@ -29,6 +44,12 @@
                     }
                     ?>
                     </select>
+                </td>
+            </tr>
+            <tr>
+                <td>著者</td>
+                <td>
+                    <input type="text" id="author" class="form_control" name="author">
                 </td>
             </tr>
             <tr>
@@ -64,11 +85,12 @@ if (file_exists($filename)) {
     } else {
         $lines = array_reverse($lines); // 新しい順に表示
         foreach ($lines as $line) {
-            if (preg_match("/^(.+?) - (\d) - (.+?) - (.+?)$/u", $line, $matches)) {
+            if (preg_match("/^(.+?) - (.+?) - (\d) - (.+?) - (.+?)$/u", $line, $matches)) {
                 $title = htmlspecialchars($matches[1], ENT_QUOTES, 'UTF-8');
-                $rating = (int)$matches[2];
-                $impression = htmlspecialchars($matches[3], ENT_QUOTES, 'UTF-8');
-                $date = htmlspecialchars($matches[4], ENT_QUOTES, 'UTF-8');
+                $author = htmlspecialchars($matches[2], ENT_QUOTES, 'UTF-8');
+                $rating = (int)$matches[3];
+                $impression = htmlspecialchars($matches[4], ENT_QUOTES, 'UTF-8');
+                $date = htmlspecialchars($matches[5], ENT_QUOTES, 'UTF-8');
                 $date_only = substr($date, 0, 10);
 
                 // 星を表示（例：★★★☆☆）
@@ -76,9 +98,10 @@ if (file_exists($filename)) {
 
                 echo "<div class='list'>
                         <div class='showed_title'>{$title}</div>
+                        <div class='showed_author'>{$author}</div>
+                        <div class='showed_date'>{$date_only}</div>
                         <div class='showed_review'>評価：{$stars}</div>
                         <div class='showed_impression'>感想：{$impression}</div>
-                        <div class='showed_date'>{$date_only}</div>
                       </div>";
             } else {
                 echo "<p>⚠ データ形式が不正な行をスキップしました。</p>";
