@@ -61,3 +61,29 @@ h1 {
 form .form_table td {
   padding: 6px;
 }
+.content {
+  width: fit-content;
+  margin: auto;
+  margin-bottom: 120px;
+  margin-top: 20px;
+}
+form .form_table td {
+  padding: 6px;
+}
+.list {
+  padding : 10px;
+  margin : 10px;
+  border-radius: 8px;
+  background-color: #d4eef1;
+}
+.form_control {
+  width: 100%;
+  box-sizing: border-box;
+}
+.showed_title {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+.showed_review {
+  margin-top: 4px;
+}

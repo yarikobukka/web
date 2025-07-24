@@ -38,4 +38,18 @@ document.addEventListener('DOMContentLoaded', function () {
       console.error('エラー:', err);
     });
   });
+
+  const bookSelect = document.querySelector('select[name="book"]');
+  const authorInput = document.getElementById('author');
+
+  bookSelect.addEventListener('change', function () {
+    const selectedTitle = this.value;
+    authorInput.value = bookData[selectedTitle] || '';
+  });
+
+    // 初期化（選択されていたら自動表示）
+  const selectedTitle = bookSelect.value;
+  if (selectedTitle) {
+    authorInput.value = bookData[selectedTitle] || '';
+  }
 });
