@@ -312,7 +312,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // API送信：fetchで非同期POST
-    fetch('https://example.com/api/books', {
+    fetch('https://backend-5x35.onrender.com/api/books', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title, reading, author })
@@ -330,5 +330,47 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // ★ ここで return true; として送信を続行（PHPも動く）
     return true;
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.getElementById('book_form');
+  const resultArea = document.getElementById('result_area');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault(); // フォームの通常送信を止める
+
+    const title = document.getElementById('title').value.trim();
+    const reading = document.getElementById('reading').value.trim();
+    const author = document.getElementById('author').value.trim();
+
+    if (!title || !author) {
+      alert('タイトルと著者は必須です。');
+      return;
+    }
+
+    fetch('https://backend-5x35.onrender.com/api/books', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title, reading, author })
+    })
+    .then(response => {
+      if (!response.ok) throw new Error(`ステータス: ${response.status}`);
+      return response.json();
+    })
+    .then(data => {
+      try {
+        const books = data.similar_books;
+
+        resultArea.innerHTML = "<h3>おすすめの本</h3><table class='recommend_table'><tr><th>タイトル</th><th>著者</th><tr>" +
+          books.map(book => `<tr><td>${book.title}</td><td>${book.author}</td></tr>`).join("") +
+          "</table>";
+      } catch (err) {
+        resultArea.innerHTML = `<p>⚠ JSON解析エラー: ${err.message}</p><pre>${data}</pre>`;
+      }
+    })
+    .catch(error => {
+      resultArea.innerHTML = `<p>⚠ API送信失敗: ${error.message}</p>`;
+    });
   });
 });

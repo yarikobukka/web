@@ -53,6 +53,22 @@
                 </td>
             </tr>
             <tr>
+                <td>開始日</td>
+                <td>
+                    <input type="date" name="start_date" class="start_date">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><div class="symbol">〜</div><td>
+            </tr>
+            <tr>
+                <td>終了日</td>
+                <td>
+                    <input type="date" name="end_date" class="end_date">
+                </td>
+            </tr>
+            <tr>
                 <td>評価</td>
                 <td>
                     <div class="stars">

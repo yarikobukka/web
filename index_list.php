@@ -32,22 +32,7 @@
     </div>
 </form>
 
-<!-- 本のおすすめシステム -->
-<div class="recommend">
-    <!-- {% if recommendations %} -->
-    <h2>おすすめの本</h2>
-    <table class="recommend_table">
-        <tr><th>タイトル</th><th>著者</th><th>説明</th></tr>
-        <!-- {% for book in recommendations %} -->
-        <tr>
-            <td>{{ book.title }}</td>
-            <td>{{ book.author }}</td>
-            <td>{{ book.desc }}</td>
-        </tr>
-        <!-- {% endfor %} -->
-    </table>
-    <!-- {% endif %} -->
-</div>
+<div id="result_area"></div>
 
 <!-- 並び順セレクトボックス -->
 <div class="select_order_wrapper">
