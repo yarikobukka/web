@@ -23,7 +23,7 @@ h1 {
   color: #F8C601;
 }
 .form_input {
-  text-align: center;
+  text-align: left;
   margin-bottom: 40px;
 }
 .form_table {
@@ -85,4 +85,9 @@ form .form_table td {
 }
 .showed_review {
   margin-top: 4px;
+}
+.symbol {
+  transform: rotate(90deg);
+  width: fit-content;
+  margin-left: 20px;
 }
