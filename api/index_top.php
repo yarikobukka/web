@@ -7,6 +7,6 @@
 </head>
 <body>
     <?php include ('index_header.php');?>
-    <?php include ('/../index_footer.php');?>
+    <?php include ('index_footer.php');?>
 </body>
 </html>
