@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>書籍レビューアプリ</title>
-  <link rel="stylesheet" href="/style_footer.css">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <?php include("index_header.php"); ?>
+  <div>
   <h1>書籍レビューサイトへようこそ</h1>
-  <script src="/index_list.js"></script>
-  <?php include("index_footer.php"); ?>
+  <div>
+  <script src="/index.js"></script>
 </body>
 </html>
