@@ -9,7 +9,7 @@ $date = date('Y/m/d H:i:s');
 
 if ($title && $impression) {
     $line = "$title - $author - $rating - $impression - $date\n";
-    file_put_contents('impressions.txt', $line, FILE_APPEND | LOCK_EX);
+    file_put_contents('../impressions.txt', $line, FILE_APPEND | LOCK_EX);
     echo json_encode([
         'success' => true,
         'title' => htmlspecialchars($title, ENT_QUOTES, 'UTF-8'),
