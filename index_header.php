@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../style_header.css">
+<link rel="stylesheet" href="style_header.css">
 <nav>
     <ul>
         <li><a href="index_top.php">Home</a></li>
