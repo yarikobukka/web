@@ -23,7 +23,7 @@
     </script>
 </head>
 <body>
-<?php include __DIR__ . 'index_header.php';?>
+<?php include __DIR__ . '/index_header.php';?>
 
 <h1>Impression Note</h1>
 
@@ -130,7 +130,7 @@ if (file_exists($filename)) {
 ?>
 </div>
 
-<?php include __DIR__ . 'index_footer.php';?>
+<?php include __DIR__ . '/index_footer.php';?>
 
 <script src="../index_note.js"></script>
 

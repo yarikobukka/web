@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="../style_meter.css">
 </head>
 <body>
-    <?php include __DIR__ . 'index_header.php';?>
+    <?php include __DIR__ . '/index_header.php';?>
     <h1>Reading Meter</h1>
-    <?php include __DIR__ . 'index_footer.php';?>
+    <?php include __DIR__ . '/index_footer.php';?>
 </body>
 </html>

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../style_list.css" />
 </head>
 <body>
-<?php include __DIR__ . 'index_header.php'; ?>
+<?php include __DIR__ . '/index_header.php'; ?>
 
 <h1>Book List</h1>
 
@@ -78,7 +78,7 @@
 ?>
 </div>
 
-<?php include __DIR__ . 'index_footer.php'; ?>
+<?php include __DIR__ . '/index_footer.php'; ?>
 
 <script src="../index_list.js"></script>
 
