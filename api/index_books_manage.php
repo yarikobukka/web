@@ -1,5 +1,5 @@
 <?php
-$filename = '../books.txt';
+$filename = __DIR__ . '/books.txt';
 
 if (!file_exists($filename)) {
     http_response_code(500);

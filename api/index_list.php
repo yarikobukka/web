@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Book List Table</title>
-    <link rel="stylesheet" href="../style_list.css" />
+    <link rel="stylesheet" href="/style_list.css" />
 </head>
 <body>
 <?php include __DIR__ . '/index_header.php'; ?>
@@ -47,7 +47,7 @@
 <!-- 表示場所 -->
 <div class="content">
 <?php
-    $filename = "../books.txt";
+    $filename = __DIR__ . "/books.txt";
     if (file_exists($filename)) {
         $lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         if (count($lines) === 0) {
@@ -80,7 +80,7 @@
 
 <?php include __DIR__ . '/index_footer.php'; ?>
 
-<script src="../index_list.js"></script>
+<script src="/index_list.js"></script>
 
 </body>
 </html>
