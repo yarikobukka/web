@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document_note</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="style_note.css">
+    <link rel="stylesheet" href="../style_note.css">
     <script>
     const bookData = {
     <?php
-    $lines = file("books.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    $lines = file("../books.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     foreach ($lines as $line) {
         $parts = explode(" - ", $line);
         $title = trim($parts[0]);
@@ -23,7 +23,7 @@
     </script>
 </head>
 <body>
-<?php include ('index_header.php');?>
+<?php include __DIR__ . 'index_header.php';?>
 
 <h1>Impression Note</h1>
 
@@ -93,7 +93,7 @@
 
 <div class="content">
 <?php
-$filename = "impressions.txt";
+$filename = "../impressions.txt";
 if (file_exists($filename)) {
     $lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     if (count($lines) === 0) {
@@ -130,9 +130,9 @@ if (file_exists($filename)) {
 ?>
 </div>
 
-<?php include ('index_footer.php');?>
+<?php include __DIR__ . 'index_footer.php';?>
 
-<script src="index_note.js"></script>
+<script src="../index_note.js"></script>
 
 </body>
 </html>

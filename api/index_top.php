@@ -6,7 +6,7 @@
     <title>Document_top</title>
 </head>
 <body>
-    <?php include ('index_header.php');?>
-    <?php include ('index_footer.php');?>
+    <?php include __DIR__ . 'index_header.php';?>
+    <?php include __DIR__ . 'index_footer.php';?>
 </body>
 </html>
