@@ -2,9 +2,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("book_form");
   const content = document.querySelector(".content");
   const sortSelect = document.getElementById("select_order");
-  const titleInput = document.querySelector(".input_title");
-  const readingInput = document.querySelector(".input_reading");
-  const authorInput = document.querySelector(".input_author");
+  const titleInput = document.getElementById("title");
+  const readingInput = document.getElementById("reading");
+  const authorInput = document.getElementById("author");
+  const resultArea = document.getElementById("result_area");
 
   function getSmartDateLabel(pastDate) {
     const now = new Date();
@@ -50,100 +51,77 @@ document.addEventListener("DOMContentLoaded", function () {
     updateAllDateLabels();
   }
 
-  // --- メニューボタンとドロップダウンを追加・イベント設定する関数 ---
   function createMenuButtonForItem(itemDiv) {
-  if (itemDiv.querySelector(".menu_button")) return;
+    if (itemDiv.querySelector(".menu_button")) return;
 
-  const titleDiv = itemDiv.querySelector(".showed_title");
-  const authorDiv = itemDiv.querySelector(".showed_author");
-  const dateDiv = itemDiv.querySelector(".showed_date");
-  const reading = itemDiv.getAttribute("data-reading") || "";
+    const titleDiv = itemDiv.querySelector(".showed_title");
+    const authorDiv = itemDiv.querySelector(".showed_author");
+    const dateDiv = itemDiv.querySelector(".showed_date");
+    const reading = itemDiv.getAttribute("data-reading") || "";
 
-  // メニューボタン
-  const menuBtn = document.createElement("button");
-  menuBtn.innerHTML = "⋮";
-  menuBtn.className = "menu_button";
+    const menuBtn = document.createElement("button");
+    menuBtn.innerHTML = "⋮";
+    menuBtn.className = "menu_button";
 
-  // メニュー本体
-  const menu = document.createElement("div");
-  menu.className = "dropdown_menu";
+    const menu = document.createElement("div");
+    menu.className = "dropdown_menu";
 
-  // メニュー項目 - 編集
-  const editItem = document.createElement("div");
-  editItem.textContent = "編集";
-  editItem.className = "dropdown_item edit_item";
+    const editItem = document.createElement("div");
+    editItem.textContent = "編集";
+    editItem.className = "dropdown_item edit_item";
 
-  // メニュー項目 - 削除
-  const deleteItem = document.createElement("div");
-  deleteItem.textContent = "削除";
-  deleteItem.className = "dropdown_item delete_item";
+    const deleteItem = document.createElement("div");
+    deleteItem.textContent = "削除";
+    deleteItem.className = "dropdown_item delete_item";
 
-  menu.appendChild(editItem);
-  menu.appendChild(deleteItem);
-  menuBtn.appendChild(menu);
+    menu.appendChild(editItem);
+    menu.appendChild(deleteItem);
+    menuBtn.appendChild(menu);
 
-  // メニューと日付をまとめる行を作成
-  const dateMenuRow = document.createElement("div");
-  dateMenuRow.className = "date_menu_row";
-  dateMenuRow.appendChild(menuBtn);
-  dateMenuRow.appendChild(dateDiv);
+    const dateMenuRow = document.createElement("div");
+    dateMenuRow.className = "date_menu_row";
+    dateMenuRow.appendChild(menuBtn);
+    dateMenuRow.appendChild(dateDiv);
+    itemDiv.appendChild(dateMenuRow);
 
-  // 挿入
-  itemDiv.appendChild(dateMenuRow);
-
-    // メニュー表示切替
     menuBtn.addEventListener("click", (e) => {
       e.stopPropagation();
-
       const isShown = menu.style.display === "block";
-
-      if (isShown) {
-        menu.style.display = "none";
-      } else {
-        menu.style.display = "block";
+      menu.style.display = isShown ? "none" : "block";
 
       const menuRect = menu.getBoundingClientRect();
       const windowWidth = window.innerWidth;
-
-        // はみ出す場合は右寄せに変更
-        if (menuRect.right > windowWidth) {
-          menu.style.left = "auto";
-          menu.style.right = "0";
-          menu.style.transform = "none";
-        } else {
-         // 通常の中央表示
-          menu.style.left = "50%";
-          menu.style.right = "auto";
-          menu.style.transform = "translateX(-50%)";
-        }
+      if (menuRect.right > windowWidth) {
+        menu.style.left = "auto";
+        menu.style.right = "0";
+        menu.style.transform = "none";
+      } else {
+        menu.style.left = "50%";
+        menu.style.right = "auto";
+        menu.style.transform = "translateX(-50%)";
       }
     });
+
     document.addEventListener("click", () => {
       menu.style.display = "none";
     });
 
-    // 編集クリック時
     editItem.addEventListener("click", () => {
       menu.style.display = "none";
-
       const titleText = titleDiv.textContent;
       const authorText = authorDiv.textContent;
       const readingText = reading;
 
       const titleInput = document.createElement("input");
       titleInput.value = titleText;
-      titleInput.setAttribute('name', 'edit_title');
-      titleInput.setAttribute('id', 'edit_title');
       titleInput.className = "edit_title";
+
       const authorInput = document.createElement("input");
       authorInput.value = authorText;
-      authorInput.setAttribute('name', 'edit_author');
-      authorInput.setAttribute('id', 'edit_author');
       authorInput.className = "edit_author";
+
       const readingInput = document.createElement("input");
       readingInput.value = readingText;
-      readingInput.setAttribute('name', 'edit_reading');
-      readingInput.setAttribute('id', 'edit_reading');
       readingInput.className = "edit_reading";
 
       titleDiv.replaceWith(titleInput);
@@ -152,8 +130,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const saveBtn = document.createElement("button");
       saveBtn.textContent = "保存";
-      saveBtn.setAttribute('name', 'save');
-      saveBtn.setAttribute('id', 'save');
       saveBtn.className = "save";
       itemDiv.appendChild(saveBtn);
 
@@ -195,10 +171,8 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
 
-    // 削除クリック時
     deleteItem.addEventListener("click", () => {
       menu.style.display = "none";
-
       if (!confirm("この本を削除しますか？")) return;
 
       const titleText = titleDiv.textContent;
@@ -214,16 +188,13 @@ document.addEventListener("DOMContentLoaded", function () {
           reading: readingText,
           author: authorText
         }).toString()
-      })
-      .then(res => {
+      }).then(res => {
         if (!res.ok) throw new Error("削除に失敗しました");
         itemDiv.remove();
-      })
-      .catch(e => alert(e.message));
+      }).catch(e => alert(e.message));
     });
   }
 
-  // 既存のリスト要素にメニューボタンをセット（初期化）
   function initializeAllMenus() {
     document.querySelectorAll(".list").forEach(item => {
       createMenuButtonForItem(item);
@@ -231,12 +202,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   sortSelect.addEventListener("change", () => sortList(sortSelect.value));
-
-  // ページロード時に初期化
   initializeAllMenus();
   sortList("new");
 
-  form.addEventListener("submit", function (e) {
+  form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const title = titleInput.value.trim();
@@ -250,20 +219,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const now = new Date();
     const fullDateTime = `${now.getFullYear()}/${String(now.getMonth() + 1).padStart(2, "0")}/${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}:${String(now.getSeconds()).padStart(2, "0")}`;
+        try {
+      // ① ローカル保存（PHP）
+      const localRes = await fetch("index_books_manage.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          action: "add",
+          title,
+          reading,
+          author,
+          date: fullDateTime
+        }).toString()
+      });
 
-    const params = new URLSearchParams({
-      action: "add",
-      title, reading, author, date: fullDateTime
-    });
+      if (!localRes.ok) throw new Error("ローカル保存に失敗しました");
 
-    fetch("index_books_manage.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: params.toString()
-    })
-    .then(response => {
-      if (!response.ok) throw new Error("保存に失敗しました");
-
+      // ② DOMに新規追加
       const newDiv = document.createElement("div");
       newDiv.className = "list";
       newDiv.setAttribute("data-reading", reading);
@@ -286,91 +258,32 @@ document.addEventListener("DOMContentLoaded", function () {
       newDiv.appendChild(dateDiv);
       content.appendChild(newDiv);
 
-      // 新規にメニューボタンを付与
       createMenuButtonForItem(newDiv);
 
+      // ③ 外部API送信（Render）
+      const apiRes = await fetch("https://backend-5x35.onrender.com/api/books", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, reading, author })
+      });
+
+      if (!apiRes.ok) throw new Error(`API送信失敗（ステータス: ${apiRes.status}）`);
+
+      const data = await apiRes.json();
+
+      // ④ おすすめ本の表示
+      const books = data.similar_books;
+      resultArea.innerHTML = "<h3>おすすめの本</h3><table class='recommend_table'><tr><th>タイトル</th><th>著者</th></tr>" +
+        books.map(book => `<tr><td>${book.title}</td><td>${book.author}</td></tr>`).join("") +
+        "</table>";
+
+      // ⑤ フォームリセットと並び替え
       form.reset();
       sortList(sortSelect.value);
-    })
-    .catch(error => alert(error.message));
-  });
-});
 
-// APIに送信するコード
-document.addEventListener('DOMContentLoaded', function () {
-  const form = document.getElementById('book_form');
-
-  form.addEventListener('submit', function (e) {
-    // 入力値の取得
-    const title = document.getElementById('title').value.trim();
-    const reading = document.getElementById('reading').value.trim();
-    const author = document.getElementById('author').value.trim();
-
-    if (!title || !author) {
-      alert('タイトルと著者は必須です。');
-      return; // フォーム送信はキャンセルしない（PHP側でもバリデートする想定）
+    } catch (err) {
+      resultArea.innerHTML = `<p>⚠ エラー: ${err.message}</p>`;
+      console.error("送信エラー:", err);
     }
-
-    // API送信：fetchで非同期POST
-    fetch('https://backend-5x35.onrender.com/api/books', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title, reading, author })
-    })
-    .then(response => {
-      if (!response.ok) {
-        console.warn('⚠ API送信失敗（ステータス:', response.status, '）');
-      } else {
-        console.log('✔ API送信成功');
-      }
-    })
-    .catch(error => {
-      console.error('⚠ 通信エラー:', error.message);
-    });
-
-    // ★ ここで return true; として送信を続行（PHPも動く）
-    return true;
-  });
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-  const form = document.getElementById('book_form');
-  const resultArea = document.getElementById('result_area');
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault(); // フォームの通常送信を止める
-
-    const title = document.getElementById('title').value.trim();
-    const reading = document.getElementById('reading').value.trim();
-    const author = document.getElementById('author').value.trim();
-
-    if (!title || !author) {
-      alert('タイトルと著者は必須です。');
-      return;
-    }
-
-    fetch('https://backend-5x35.onrender.com/api/books', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title, reading, author })
-    })
-    .then(response => {
-      if (!response.ok) throw new Error(`ステータス: ${response.status}`);
-      return response.json();
-    })
-    .then(data => {
-      try {
-        const books = data.similar_books;
-
-        resultArea.innerHTML = "<h3>おすすめの本</h3><table class='recommend_table'><tr><th>タイトル</th><th>著者</th><tr>" +
-          books.map(book => `<tr><td>${book.title}</td><td>${book.author}</td></tr>`).join("") +
-          "</table>";
-      } catch (err) {
-        resultArea.innerHTML = `<p>⚠ JSON解析エラー: ${err.message}</p><pre>${data}</pre>`;
-      }
-    })
-    .catch(error => {
-      resultArea.innerHTML = `<p>⚠ API送信失敗: ${error.message}</p>`;
-    });
   });
 });
