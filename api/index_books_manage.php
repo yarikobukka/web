@@ -1,9 +1,11 @@
 <?php
+header('Content-Type: application/json');
+
 $filename = __DIR__ . '/books.txt';
 
 if (!file_exists($filename)) {
     http_response_code(500);
-    echo "books.txt が存在しません";
+    echo json_encode(['success' => false, 'error' => 'books.txt が存在しません']);
     exit;
 }
 
@@ -18,19 +20,18 @@ switch ($action) {
 
         if (!$title || !$reading || !$author || !$date) {
             http_response_code(400);
-            echo "不正な入力です";
+            echo json_encode(['success' => false, 'error' => '不正な入力です']);
             exit;
         }
 
-        $line = "{$title} - {$reading} - {$author} - {$date}\n";
+        $line = "{$title} - {$reading} - {$author} - {$date}" . PHP_EOL;
         if (file_put_contents($filename, $line, FILE_APPEND) === false) {
             http_response_code(500);
-            echo "ファイル書き込みに失敗しました";
+            echo json_encode(['success' => false, 'error' => 'ファイル書き込みに失敗しました']);
             exit;
         }
 
-        http_response_code(200);
-        echo "追加成功";
+        echo json_encode(['success' => true, 'message' => '追加成功']);
         break;
 
     case 'update':
@@ -43,7 +44,7 @@ switch ($action) {
 
         if (!$oldTitle || !$oldReading || !$oldAuthor || !$newTitle || !$newReading || !$newAuthor) {
             http_response_code(400);
-            echo "不正な入力です";
+            echo json_encode(['success' => false, 'error' => '不正な入力です']);
             exit;
         }
 
@@ -64,14 +65,13 @@ switch ($action) {
         if ($updated) {
             if (file_put_contents($filename, implode(PHP_EOL, $lines) . PHP_EOL) === false) {
                 http_response_code(500);
-                echo "ファイル書き込みに失敗しました";
+                echo json_encode(['success' => false, 'error' => 'ファイル書き込みに失敗しました']);
                 exit;
             }
-            http_response_code(200);
-            echo "更新成功";
+            echo json_encode(['success' => true, 'message' => '更新成功']);
         } else {
             http_response_code(404);
-            echo "該当データが見つかりませんでした";
+            echo json_encode(['success' => false, 'error' => '該当データが見つかりませんでした']);
         }
         break;
 
@@ -82,7 +82,7 @@ switch ($action) {
 
         if (!$title || !$reading || !$author) {
             http_response_code(400);
-            echo "パラメータ不足";
+            echo json_encode(['success' => false, 'error' => 'パラメータ不足']);
             exit;
         }
 
@@ -92,38 +92,36 @@ switch ($action) {
 
         foreach ($lines as $line) {
             $parts = explode(' - ', $line);
-            if (count($parts) < 4) {
+            if (count($parts) !== 4) {
                 $new_lines[] = $line;
                 continue;
             }
-            list($lineTitle, $lineReading, $lineAuthor) = $parts;
+            list($lineTitle, $lineReading, $lineAuthor, $lineDate) = $parts;
             if ($lineTitle === $title && $lineReading === $reading && $lineAuthor === $author) {
                 $found = true;
-                // 削除のため追加しない
-            } else {
-                $new_lines[] = $line;
+                continue; // 削除対象なので追加しない
             }
+            $new_lines[] = $line;
         }
 
         if (!$found) {
             http_response_code(404);
-            echo "該当データが見つかりません";
+            echo json_encode(['success' => false, 'error' => '該当データが見つかりません']);
             exit;
         }
 
         if (file_put_contents($filename, implode(PHP_EOL, $new_lines) . PHP_EOL) === false) {
             http_response_code(500);
-            echo "ファイル書き込みに失敗しました";
+            echo json_encode(['success' => false, 'error' => 'ファイル書き込みに失敗しました']);
             exit;
         }
 
-        http_response_code(200);
-        echo "削除成功";
+        echo json_encode(['success' => true, 'message' => '削除成功']);
         break;
 
     default:
         http_response_code(400);
-        echo "不正なアクションです";
-        exit;
+        echo json_encode(['success' => false, 'error' => '不正なアクションです']);
+        break;
 }
 ?>

@@ -1,14 +1,36 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>書籍レビューアプリ</title>
-  <link rel="stylesheet" href="style.css">
-</head>
 <body>
-  <div>
-  <h1>hello world!</h1>
-  <div>
+  <h1>書籍レビューアプリ</h1>
+
+  <!-- 書籍追加フォーム -->
+  <form id="book_form">
+    <input type="text" id="title" class="input_title" placeholder="タイトル">
+    <input type="text" id="reading" class="input_reading" placeholder="読み方">
+    <input type="text" id="author" class="input_author" placeholder="著者">
+    <button type="submit">追加</button>
+  </form>
+
+  <!-- 並び順セレクト -->
+  <select id="select_order">
+    <option value="new">新しい順</option>
+    <option value="old">古い順</option>
+    <option value="reading">読み仮名順</option>
+  </select>
+
+  <!-- 書籍リスト表示領域 -->
+  <div class="content"></div>
+
+  <!-- おすすめ本の表示領域 -->
+  <div id="result_area"></div>
+
+  <!-- 感想フォーム -->
+  <form id="note_form">
+    <select name="book"></select>
+    <input type="text" id="author" placeholder="著者">
+    <textarea name="impression" placeholder="感想"></textarea>
+    <input type="number" name="rating" min="1" max="5" placeholder="評価（1〜5）">
+    <button type="submit">感想を送信</button>
+  </form>
+
   <script src="index.js"></script>
+  <script src="index_note.js"></script>
 </body>
-</html>
