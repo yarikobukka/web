@@ -161,8 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
             saveBtn.setAttribute('id', 'save');
             saveBtn.className = "save";
             itemDiv.appendChild(saveBtn);
-            itemDiv.insertBefore(readingInput, saveBtn); // readingInput を挿入 (元のコードにはこの部分のロジックが欠けていたため仮で追加)
-
+            itemDiv.insertBefore(readingInput, saveBtn);
 
             saveBtn.addEventListener("click", () => {
                 const newTitle = titleInput.value.trim();
@@ -246,10 +245,7 @@ document.addEventListener("DOMContentLoaded", function () {
     initializeAllMenus();
     sortList("new");
 
-
-    // --------------------------------------------------------
-    // ✅ 統合されたフォーム送信イベントリスナー
-    // --------------------------------------------------------
+    // フォーム送信イベント
     form.addEventListener("submit", function (e) {
         e.preventDefault(); // フォームの通常の送信を停止
 
@@ -262,7 +258,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // --- 1. index_books_manage.php (PHP) への追加処理 ---
+        // --- index_books_manage.php (PHP) への追加処理 ---
         const now = new Date();
         const fullDateTime = `${now.getFullYear()}/${String(now.getMonth() + 1).padStart(2, "0")}/${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}:${String(now.getSeconds()).padStart(2, "0")}`;
 
@@ -313,7 +309,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => alert(`リスト保存エラー: ${error.message}`));
 
 
-        // --- 2. API (https://backend-5x35.onrender.com/api/books) への送信と結果表示 ---
+        // --- API (https://backend-5x35.onrender.com/api/books) への送信と結果表示 ---
         fetch('https://backend-5x35.onrender.com/api/books', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

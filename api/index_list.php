@@ -47,7 +47,7 @@
 <!-- 表示場所 -->
 <div class="content">
 <?php
-    $filename = __DIR__ . "/books.txt";
+    $filename = "/books.txt";
     if (file_exists($filename)) {
         $lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         if (count($lines) === 0) {
