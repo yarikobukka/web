@@ -137,21 +137,26 @@ document.addEventListener("DOMContentLoaded", function () {
             titleInput.setAttribute('id', 'edit_title');
             titleInput.className = "edit_title";
 
-            const authorInput = document.createElement("input");
-            authorInput.value = authorText;
-            authorInput.setAttribute('name', 'edit_author');
-            authorInput.setAttribute('id', 'edit_author');
-            authorInput.className = "edit_author";
-
             const readingInput = document.createElement("input");
             readingInput.value = readingText;
             readingInput.setAttribute('name', 'edit_reading');
             readingInput.setAttribute('id', 'edit_reading');
             readingInput.className = "edit_reading";
 
-            titleDiv.replaceWith(titleInput);
+            const authorInput = document.createElement("input");
+            authorInput.value = authorText;
+            authorInput.setAttribute('name', 'edit_author');
+            authorInput.setAttribute('id', 'edit_author');
+            authorInput.className = "edit_author";
+
+            const titleReadingWrapper = document.createElement("div");
+            titleReadingWrapper.className = "title_reading_wrapper";
+
+            titleReadingWrapper.appendChild(titleInput);
+            titleReadingWrapper.appendChild(readingInput);
+
+            titleDiv.replaceWith(titleReadingWrapper);
             authorDiv.replaceWith(authorInput);
-            // readingInput の挿入ロジックが元のコードから不足しているが、ここでは authorDiv の次と仮定
 
             // メニューボタンを非表示にし、保存ボタンを作成・表示
             menuBtn.style.display = "none";
@@ -161,12 +166,11 @@ document.addEventListener("DOMContentLoaded", function () {
             saveBtn.setAttribute('id', 'save');
             saveBtn.className = "save";
             itemDiv.appendChild(saveBtn);
-            itemDiv.insertBefore(readingInput, saveBtn);
 
             saveBtn.addEventListener("click", () => {
                 const newTitle = titleInput.value.trim();
-                const newAuthor = authorInput.value.trim();
                 const newReading = readingInput.value.trim();
+                const newAuthor = authorInput.value.trim();
 
                 if (!newTitle || !newAuthor || !newReading) {
                     alert("空欄は保存できません");
