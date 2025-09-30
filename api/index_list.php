@@ -34,16 +34,6 @@
 
 <div id="result_area"></div>
 
-<!-- 並び順セレクトボックス -->
-<div class="select_order_wrapper">
-    <span class="chevron_icon"></span>
-    <select id="select_order">
-        <option value="new" selected>新しい順</option>
-        <option value="old">古い順</option>
-        <option value="reading">タイトル順</option>
-    </select>
-</div>
-
 <!-- 表示場所 -->
 <div class="content">
     <!-- 並び順セレクトボックス -->
