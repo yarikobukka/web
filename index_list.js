@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const now = new Date();
         const fullDateTime = `${now.getFullYear()}/${String(now.getMonth() + 1).padStart(2, "0")}/${String(now.getDate()).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}:${String(now.getSeconds()).padStart(2, "0")}`;
 
-        const phpParams = new URLSearchParams({
+        new URLSearchParams({
             action: "add",
             title, reading, author, date: fullDateTime
         });
@@ -226,7 +226,13 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch("/api/index_books_manage.php", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: phpParams.toString()
+            body: new URLSearchParams({
+                action: "add",
+                title,
+                reading,
+                author,
+                date: fullDateTime
+            }).toString()
         })
         .then(res => {
             if (!res.ok) throw new Error("リスト保存に失敗しました");
