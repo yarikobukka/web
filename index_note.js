@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const formData = new FormData(form);
 
-    fetch('index_impression_manage.php', {
+    fetch('api/index_impression_manage.php', {
       method: 'POST',
       body: formData
     })

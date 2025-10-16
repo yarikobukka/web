@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
 
-                fetch("index_books_manage.php", {
+                fetch("api/index_books_manage.php", {
                     method: "POST",
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
                     body: new URLSearchParams({
@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
             menu.style.display = "none";
             if (!confirm("この本を削除しますか？")) return;
 
-            fetch("index_books_manage.php", {
+            fetch("api/index_books_manage.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: new URLSearchParams({
@@ -223,7 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
             title, reading, author, date: fullDateTime
         });
 
-        fetch("index_books_manage.php", {
+        fetch("api/index_books_manage.php", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: phpParams.toString()
