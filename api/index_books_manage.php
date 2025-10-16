@@ -1,4 +1,7 @@
 <?php
+// デバッグログ出力（POSTデータ確認用）
+file_put_contents(__DIR__ . "/debug.log", date("Y-m-d H:i:s") . "\n" . print_r($_POST, true) . "\n", FILE_APPEND);
+
 header('Content-Type: application/json');
 
 $filename = __DIR__ . '/books.txt';

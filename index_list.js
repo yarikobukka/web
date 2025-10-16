@@ -269,7 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .then(data => {
             const books = data.similar_books || [];
-            resultArea.textContent = ""; // クリア
+            resultArea.textContent = "";
             if (books.length > 0) {
                 const table = document.createElement("table");
                 table.className = "recommend_table";
