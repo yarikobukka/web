@@ -274,19 +274,22 @@ document.addEventListener("DOMContentLoaded", () => {
             return res.json();
         })
         .then(data => {
-            const books = data.books || [];
+            const books = data.books || {};
             resultArea.textContent = "";
-            if (books.length > 0) {
+
+            const bookEntries = Object.entries(books); // [['ファンタジー', {...}], ['薬物', {...}], ...]
+
+            if (bookEntries.length > 0) {
                 const table = document.createElement("table");
                 table.className = "recommend_table";
 
                 const header = document.createElement("tr");
-                header.innerHTML = "<th>タイトル</th><th>著者</th>";
+                header.innerHTML = "<th>キーワード</th><th>タイトル</th><th>著者</th>";
                 table.appendChild(header);
 
-                books.forEach(book => {
+                bookEntries.forEach(([keyword, book]) => {
                     const row = document.createElement("tr");
-                    row.innerHTML = `<td>${book.title}</td><td>${book.author}</td>`;
+                    row.innerHTML = `<td>${keyword}</td><td>${book.title}</td><td>${book.author}</td>`;
                     table.appendChild(row);
                 });
 
