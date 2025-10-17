@@ -20,7 +20,7 @@
                 <td><input type="text" name="title" id="title" class="input_title"></td>
             </tr>
             <tr>
-                <td>読み方</td>
+                <td>よみがな</td>
                 <td><input type="text" name="reading" id="reading" class="input_reading"></td>
             </tr>
             <tr>

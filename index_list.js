@@ -274,7 +274,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return res.json();
         })
         .then(data => {
-            const books = data.similar_books || [];
+            const books = data.books || [];
             resultArea.textContent = "";
             if (books.length > 0) {
                 const table = document.createElement("table");
